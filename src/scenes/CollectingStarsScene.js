@@ -95,6 +95,9 @@ export default class CollectingStarsScene extends Phaser.Scene {
       setXY: { x: 30, y: 0, stepX: 120 },
     });
 
+    this.physics.add.collider(this.bombs, this.platforms);
+    this.physics.add.overlap(this.player, this.bombs, this.gameOver, null, this);
+
   }
   update() {
     
@@ -142,7 +145,14 @@ export default class CollectingStarsScene extends Phaser.Scene {
     star.destroy()
     this.score += 10; 
     this.scoreText.setText('Score : '+this.score);
+  }
+
+  gameOver(player, bomb){
+    this.physics.pause()
+    this.add.text(300,300,'Game Over!!!', { 
+    fontSize: '48px', fill:'yellow' })
 }
+
 
 //Parameter player, star sesuai dengan urutan pada kode overlap
 }
